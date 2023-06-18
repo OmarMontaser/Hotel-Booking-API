@@ -25,7 +25,7 @@ Get Started
 
     npm start 
 
-  In the nearest future I will add some more features some payment  Etc...
+  In the nearest future I will add some more features
 
                                                      
                                                  Have Fun 😁😁
