@@ -1,6 +1,9 @@
 const Hotel = require('../model/hotels')
 const Room = require('../model/rooms')
 
+var Logger = require('../services/logger')
+
+const logger = new Logger('hotels')
 
 //Create 
 const CreateHotel = async(req , res ,next)=>{
@@ -10,6 +13,7 @@ const CreateHotel = async(req , res ,next)=>{
     try{
         const savedHotel = await newHotel.save() ;
         res.status(200).json(savedHotel) ;
+        logger.info('return New Hotel' , savedHotel) ;
 
     }catch(err){
         res.status(500).json(err)
@@ -54,7 +58,9 @@ const GetHotel = async (req ,res,next)=>{
 const GetAllHotel = async (req ,res,next)=>{
     try{
     const hotel = await Hotel.find();
+    logger.info('Return All Hotel' , hotel) ;
     res.status(200).json(hotel) ;
+
     }catch(err){
         res.status(500).json(err)
     }

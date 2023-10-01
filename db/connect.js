@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.set('strictQuery', false);
+mongoose.set('strict', false);
 
 const connect = async (uri) => {
   try {

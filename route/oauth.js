@@ -1,5 +1,5 @@
 const router = require('express').Router() ;
-const passport = require('../controller/oauthGoogle.');
+//const passport = require('../controller/oauthGoogle.');
 
 
 
