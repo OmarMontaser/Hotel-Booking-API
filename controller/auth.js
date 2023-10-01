@@ -2,6 +2,9 @@ const User = require('../model/users')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
+var Logger = require('../services/logger')
+
+const logger = new Logger('hotels')
 
 
 const register = async(req,res,next)=>{
@@ -17,10 +20,12 @@ const register = async(req,res,next)=>{
                 password: hash,
             });
             await user.save();
-        
+            logger.info('save user' , user) ;
+
         res.status(200).json('User registered successfully');
         
         } catch (error) {
+          logger.error('Return Error') ;
         next(error);
         }
         }

@@ -32,9 +32,11 @@ const updateRoom = async (req ,res , next)=>{
             {$set : req.body},
             {new : true}
         );
+            logger.info('updated Room' , updateRoom)
             res.status(200).json(updateRoom)
 
     }catch(err){
+        logger.error('return error' , err)
         res.status(500).json(err)
     }
 
@@ -46,6 +48,7 @@ const deleteRoom = async (req, res, next)=>{
         await Rooms.findByIdAndDelete(req.params.id)
         res.status(200).json("Room has been Deleted")
     }catch(err){
+        logger.error('return err', err)
         res.status(500).json(err)
     }
 }
@@ -53,9 +56,11 @@ const deleteRoom = async (req, res, next)=>{
 const getRoom = async (req, res,next)=>{
     try{
         const room = await  findById(req.params.id)
+        logger.info('return room', room)
         res.status(200).json(room);
 
     }catch(err){
+        logger.error('return err', err)
         res.status(500).json(err)
     }
 }
@@ -63,8 +68,10 @@ const getRoom = async (req, res,next)=>{
 const getAllRoom = async(req,res,next)=>{
     try{
         const rooms = await Rooms.find()
+        logger.info('return rooms',rooms)
         re.status(200).json(rooms)
     }catch(err){
+        logger.error('return err', err)
         res.status(500).json(err)
     }
 }

@@ -12,10 +12,13 @@ const CreateHotel = async(req , res ,next)=>{
         
     try{
         const savedHotel = await newHotel.save() ;
+        logger.info('Return Created Hotel' , savedHotel) ;
+
         res.status(200).json(savedHotel) ;
-        logger.info('return New Hotel' , savedHotel) ;
 
     }catch(err){
+        logger.error('Return Error' , err) ;
+
         res.status(500).json(err)
     }
 }
@@ -27,8 +30,12 @@ const UpdateHotel = async(req ,res,next)=>{
                 req.params.id,
                 {$set: req.body},
                 {new: true})
+                logger.info('Update Hotel' , updateHotel) ;
+
                 res.status(200).json(updateHotel) ;
         }catch(err){
+            logger.error('Return err' , err) ;
+
             res.status(500).json(err)
         }
 }
@@ -40,6 +47,8 @@ const DeleteHotel = async (req ,res,next)=>{
         res.status(200).json('Hotel has been deleted') ;
 
     }catch(err){
+        logger.error('Return error'  , err) ;
+
         res.status(500).json(err)
     }
 }
@@ -48,8 +57,11 @@ const DeleteHotel = async (req ,res,next)=>{
 const GetHotel = async (req ,res,next)=>{
     try{
     const hotel = await Hotel.findById(req.params.id)
+    logger.info('get Hotel' , hotel) ;
     res.status(200).json(hotel);
     }catch(err){
+        logger.error('Return error' , hotel) ;
+
         res.status(500).json(err)
     }
 }
@@ -62,6 +74,7 @@ const GetAllHotel = async (req ,res,next)=>{
     res.status(200).json(hotel) ;
 
     }catch(err){
+        logger.error('Return Error')
         res.status(500).json(err)
     }
 }
@@ -78,9 +91,10 @@ const countByCity = async (req, res, next) => {
         const list = await Promise.all(cities.map(city => {
             return Hotel.countDocuments({ city: city });
         }));
-
+        logger.info('return list ' , list)
         res.status(200).json(list);
     } catch (err) {
+        logger.error('return error' , err)
         res.status(500).json(err);
     }
 };
