@@ -1,8 +1,11 @@
 const Rooms = require('../model/rooms')
 const Hotel = require('../model/hotels')
+var Logger = require('../services/logger')
+
+const logger = new Logger('rooms')
 
 const createRoom = async(req ,res, next)=>{
-    
+
     const hotelId = req.params.hotelid
     const newRoom = new Rooms(req.body)
 
@@ -66,8 +69,12 @@ const getRoom = async (req, res,next)=>{
 }
 
 const getAllRoom = async(req,res,next)=>{
+    const query = req.query;
+    const limit = query.limit || 10;
+    const page =  query.page  || 1 ;
+    const skip = (page-1) * limit ;
     try{
-        const rooms = await Rooms.find()
+        const rooms = await Rooms.find().limit(limit).skip(skip)
         logger.info('return rooms',rooms)
         re.status(200).json(rooms)
     }catch(err){

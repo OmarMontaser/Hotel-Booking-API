@@ -1,6 +1,5 @@
 const Hotel = require('../model/hotels')
 const Room = require('../model/rooms')
-
 var Logger = require('../services/logger')
 
 const logger = new Logger('hotels')
@@ -68,8 +67,14 @@ const GetHotel = async (req ,res,next)=>{
 
 //Get All 
 const GetAllHotel = async (req ,res,next)=>{
+        const query = req.query;
+        const limit = query.limit || 10;
+        const page =  query.page  || 1 ;
+        const skip = (page-1) * limit ;
     try{
-    const hotel = await Hotel.find();
+       const hotel = await Hotel.find({} , {"__v":false})
+        .limit(limit)
+        .skip(skip);
     logger.info('Return All Hotel' , hotel) ;
     res.status(200).json(hotel) ;
 
